@@ -2327,8 +2327,7 @@ static char *url_escape(char *in, int len, const char *delim) /* {{{ */
 	char *buf;
 	if((buf = malloc(strlen(in) * 3)) == NULL) {
 		return NULL;
-	}
-	else {
+	} else {
 		*buf = 0;
 	}
 
@@ -2343,7 +2342,9 @@ static char *url_escape(char *in, int len, const char *delim) /* {{{ */
 		strcat(buf, delim);
 	}
 
-	buf[strlen(buf)-1] = 0;
+	if((len = strlen(buf)) > 0) {
+		buf[len-1] = 0;
+	}
 	return buf;
 } /* }}} */
 
