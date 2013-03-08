@@ -2324,15 +2324,16 @@ void *thread_pool(void *arg) /* {{{ */
 static char *url_escape(char *in, int len, const char *delim) /* {{{ */
 {
 	char *tok, *escaped;
-	char *buf = malloc(strlen(in) * 3);
-	buf[0] = 0;
+	char *buf;
+	if((buf = malloc(strlen(in) * 3)) == NULL) {
+		return NULL;
+	}
+	else {
+		*buf = 0;
+	}
 
 	if(!delim) {
 		return curl_easy_escape(NULL, in, len);
-	}
-
-	if( buf == NULL) {
-		return NULL;
 	}
 
 	while((tok = strsep(&in, delim))) {
@@ -2342,7 +2343,8 @@ static char *url_escape(char *in, int len, const char *delim) /* {{{ */
 		strcat(buf, delim);
 	}
 
-	return strndup(buf, strlen(buf) - 1);
+	buf[strlen(buf)-1] = 0;
+	return buf;
 } /* }}} */
 
 void usage(void) /* {{{ */
