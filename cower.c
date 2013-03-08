@@ -2325,7 +2325,7 @@ static char *url_escape(char *in, int len, const char *delim) /* {{{ */
 {
 	char *tok, *escaped;
 	char *buf;
-	if((buf = malloc(strlen(in) * 3)) == NULL) {
+	if((buf = malloc(strlen(in) * 3 + 1)) == NULL) {
 		return NULL;
 	} else {
 		*buf = 0;
